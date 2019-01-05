@@ -51,18 +51,25 @@ public class ControllerServlet extends HttpServlet {
 		try {
 			switch(action) {
 				case "/admin":
-					 showBookAdmin(request, response);
-           break;
-			  case "/new":
+					showBookAdmin(request, response);
+					break;
+
+				case "/new":
 					showNewForm(request, response);
-          break;
+					break;
+
 				case "/insert":
 					insertBook(request, response);
-          break;
-        default:
-				   listBooks(request, response);
-           break;
-			}
+					break;
+
+				case "/delete":
+					deleteBook(request, response);
+					break;
+
+				default:
+					listBooks(request, response);
+					break;
+				}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,6 +109,14 @@ public class ControllerServlet extends HttpServlet {
 		Book newBook = new Book(title, author, Float.parseFloat(priceString));
 
 		bookDAO.insertBook(newBook);
+		response.sendRedirect("list");
+	}
+
+	private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String idStr = request.getParameter("id");
+		int id = Integer.parseInt(idStr);
+
+		bookDAO.deleteBook(id);
 		response.sendRedirect("list");
 	}
 
