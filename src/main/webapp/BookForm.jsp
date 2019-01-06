@@ -18,7 +18,7 @@
         <form name="book_form" method="post" action="update">
         <h2>
             Edit Book Form
-        </h2><input type="hidden" name="<c:out value ="${book.getId()}"/>" value="<c:out value ="${book.getId()}"/>"/>
+        </h2><input type="hidden" name="id" value="<c:out value ="${book.getId()}"/>"/>
           <p><label>Title:</label>
         <input type="text" name="booktitle" value="<c:out value ="${book.getTitle()}"/>"/></p>
           <p><label>Author:</label>

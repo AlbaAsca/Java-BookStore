@@ -62,6 +62,10 @@ public class ControllerServlet extends HttpServlet {
 					insertBook(request, response);
 					break;
 
+				case "/update":
+					updateBook(request, response);
+					break;
+
 				case "/delete":
 					deleteBook(request, response);
 					break;
@@ -123,6 +127,18 @@ public class ControllerServlet extends HttpServlet {
 		Book newBook = new Book(title, author, Float.parseFloat(priceString));
 
 		bookDAO.insertBook(newBook);
+		response.sendRedirect("list");
+	}
+
+	private void updateBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String title = request.getParameter("booktitle");
+		String author = request.getParameter("bookauthor");
+		String priceString = request.getParameter("bookprice");
+		String idStr = request.getParameter("id");
+		int id = Integer.parseInt(idStr);
+		Book newBook = new Book(id, title, author, Float.parseFloat(priceString));
+
+		bookDAO.updateBook(newBook);
 		response.sendRedirect("list");
 	}
 
