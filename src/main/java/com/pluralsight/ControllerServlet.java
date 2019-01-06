@@ -65,6 +65,9 @@ public class ControllerServlet extends HttpServlet {
 				case "/delete":
 					deleteBook(request, response);
 					break;
+				case "/edit":
+					showEditForm(request, response);
+					break;
 
 				default:
 					listBooks(request, response);
@@ -84,6 +87,17 @@ public class ControllerServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/BookAdmin.jsp");
 		dispatcher.forward(request, response);
 	}
+
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String idStr = request.getParameter("id");
+		int id = Integer.parseInt(idStr);
+
+		Book book = bookDAO.getBook(id);
+		request.setAttribute("book", book);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/BookForm.jsp");
+		dispatcher.forward(request, response);
+	}
+
 
 	private void listBooks(HttpServletRequest request, HttpServletResponse response)
 			throws ClassNotFoundException, SQLException, ServletException, IOException {
